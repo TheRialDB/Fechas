@@ -24,27 +24,18 @@ namespace Fechas
             epvTextos.Clear();
 
             //validacion para llenar los campos
-            if (ValidarLlenado())
-            {
-
-            }
-            else
+            if (!ValidarLlenado())
             {
                 //valores traidos de los textboxs
                 int dia = Convert.ToInt32(txtDia.Text);
                 int mes = Convert.ToInt32(txtMes.Text);
                 int anual = Convert.ToInt32(txtAnual.Text);
-                
-                if (ValidarDatos())
-                {
 
-                }
-                else
+                if (!ValidarDatos())
                 {
-
                     //Variable de año bisiesto
                     bool anualTipo = false;
-                    if (anual%4 == 0)
+                    if ((anual % 4 == 0) && (anual % 100 != 0 || anual % 400 == 0))
                     {
                         anualTipo = true;
                     }
@@ -53,18 +44,18 @@ namespace Fechas
                     switch (mes)
                     {
                         case 1:
-                            if (dia==31)
+                            if (dia == 31)
                             {
                                 lblRespuesta.Text = "1 de Febrero de " + anual;
                                 break;
                             }
                             else
                             {
-                                lblRespuesta.Text = dia+1 + " de Enero de " + anual;
+                                lblRespuesta.Text = dia + 1 + " de Enero de " + anual;
                                 break;
                             }
                         case 2:
-                            if (dia == 31 || dia ==30 )
+                            if (dia == 31 || dia == 30)
                             {
                                 epvTextos.SetError(txtDia, "Febrero no tiene " + dia + " dias");
                                 break;
@@ -217,7 +208,7 @@ namespace Fechas
                         case 12:
                             if (dia == 31)
                             {
-                                lblRespuesta.Text = "1 de Enero de " + (anual+1);
+                                lblRespuesta.Text = "1 de Enero de " + (anual + 1);
                                 break;
                             }
                             else
